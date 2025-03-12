@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 
 # Load API key
 load_dotenv()
-from openai import OpenAI
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# Initialize OpenAI client (correct way)
+client = openai.OpenAI()
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -30,3 +30,4 @@ def chat():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
