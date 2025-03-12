@@ -230,21 +230,30 @@
             chatBox.appendChild(botMessage);
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            let response = await fetch("http://127.0.0.1:5000/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: message }),
-            });
+            try {
+                let response = await fetch("https://chatbot-hngz.onrender.com/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: message }),
+                });
 
-            let data = await response.json();
-            document.getElementById("typing-indicator").remove();
+                let data = await response.json();
+                document.getElementById("typing-indicator").remove();
 
-            let botReply = document.createElement("div");
-            botReply.className = "bot";
-            botReply.textContent = `Pinkman: ${data.reply}`;
-            chatBox.appendChild(botReply);
-            chatBox.scrollTop = chatBox.scrollHeight;
+                let botReply = document.createElement("div");
+                botReply.className = "bot";
+                botReply.textContent = `Pinkman: ${data.reply}`;
+                chatBox.appendChild(botReply);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                document.getElementById("typing-indicator").remove();
+                let botReply = document.createElement("div");
+                botReply.className = "bot";
+                botReply.textContent = "Pinkman: Sorry, there was an error!";
+                chatBox.appendChild(botReply);
+            }
         }
     </script>
 </body>
 </html>
+
